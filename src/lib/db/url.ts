@@ -2,6 +2,17 @@
  * Resolves MySQL connection URL from env vars.
  * Server-side only — never import from client components.
  */
+export function isDatabaseConfigured(): boolean {
+  const direct = process.env.DATABASE_URL?.trim();
+  if (direct) return true;
+
+  const host = process.env.DB_HOST?.trim();
+  const name = process.env.DB_NAME?.trim();
+  const user = process.env.DB_USER?.trim();
+
+  return Boolean(host && name && user);
+}
+
 export function resolveDatabaseUrl(): string {
   const direct = process.env.DATABASE_URL?.trim();
   if (direct) return direct;

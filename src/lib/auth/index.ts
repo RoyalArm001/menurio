@@ -11,6 +11,7 @@ import {
 } from "@/db/schema";
 import { findUserByEmail } from "@/services/user.service";
 import { verifyPassword } from "@/lib/auth/password";
+import { isDatabaseConfigured } from "@/lib/db/url";
 
 const googleConfigured =
   Boolean(process.env.GOOGLE_CLIENT_ID) &&
@@ -53,12 +54,14 @@ const providers = [
 ];
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: DrizzleAdapter(getDb(), {
-    usersTable: users,
-    accountsTable: accounts,
-    sessionsTable: sessions,
-    verificationTokensTable: verificationTokens,
-  }),
+  adapter: isDatabaseConfigured()
+    ? DrizzleAdapter(getDb(), {
+        usersTable: users,
+        accountsTable: accounts,
+        sessionsTable: sessions,
+        verificationTokensTable: verificationTokens,
+      })
+    : undefined,
   providers,
   session: {
     strategy: "jwt",
