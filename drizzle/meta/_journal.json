@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1788039800776,
+      "tag": "0000_outstanding_molecule_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1788039800777,
+      "tag": "0001_pwa_push_notifications",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1788039800778,
+      "tag": "0002_auth_seo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1788039800779,
+      "tag": "0003_production_hardening",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1788039800780,
+      "tag": "0004_internationalization",
+      "breakpoints": true
+    }
+  ]
+}

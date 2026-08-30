@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#D95532"/>
+      <stop offset="1" stop-color="#66715C"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#g)"/>
+  <circle cx="620" cy="120" r="80" fill="white" fill-opacity="0.12"/>
+  <text x="48" y="420" fill="white" font-family="Georgia, serif" font-size="42" font-weight="600">Avena</text>
+</svg>

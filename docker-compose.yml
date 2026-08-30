@@ -1,0 +1,27 @@
+# Local MySQL 8.4 for Menurio development.
+# Start: npm run db:up
+# Init schema: npm run db:init
+
+services:
+  db:
+    image: mysql:8.4
+    container_name: menurio-db
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_dev
+      MYSQL_DATABASE: menurio
+      MYSQL_USER: menurio
+      MYSQL_PASSWORD: menurio_dev
+    volumes:
+      - menurio_mysql_data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-proot_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  menurio_mysql_data:
