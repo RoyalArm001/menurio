@@ -62,7 +62,7 @@ export function OnboardingWizard() {
   const [brandColor, setBrandColor] = useState("#D95532");
   const [logoName, setLogoName] = useState("");
   const [menuItems, setMenuItems] = useState(products.slice(0, 2));
-  const [languages, setLanguages] = useState(["English", "Armenian"]);
+  const [languages, setLanguages] = useState(["Armenian", "English"]);
   const [published, setPublished] = useState(false);
 
   const progress = useMemo(() => ((current + 1) / steps.length) * 100, [current]);
@@ -288,7 +288,7 @@ function LanguagesStep({ languages, onToggle }: { languages: string[]; onToggle:
   ];
   return (
     <div className="fade-up">
-      <StepHeader eyebrow="Step 4 of 6" title="Welcome every guest." description="Choose the languages your website and menu will support. English is the default for this preview." />
+      <StepHeader eyebrow="Step 4 of 6" title="Welcome every guest." description="Choose the languages your website and menu will support. Armenian is the default for this preview." />
       <div className="grid gap-3 sm:grid-cols-2">
         {options.map(([language, code, local]) => {
           const selected = languages.includes(language);
@@ -331,7 +331,7 @@ function PublishStep({ brandColor, languages, menuCount }: { brandColor: string;
       <StepHeader eyebrow="Step 6 of 6" title="Everything looks ready." description="Review your setup. Publishing will create the public restaurant preview; you can keep refining it from the dashboard." />
       <div className="grid gap-6 md:grid-cols-[1.15fr_.85fr]">
         <div className="overflow-hidden rounded-3xl border border-ink/10 bg-white shadow-soft">
-          <div className="relative h-52"><Image src="/images/avena-interior.png" alt="Avena website cover" fill className="object-cover" sizes="500px" /><div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" /><div className="absolute bottom-5 left-5 text-white"><p className="display-font text-3xl font-semibold">Avena</p><p className="text-xs text-white/70">Armenian soul, Mediterranean rhythm</p></div></div>
+          <div className="relative h-52"><Image src="/images/avena-interior.png" alt="Avena website cover" fill className="object-cover" sizes="500px" /><div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" /><div className="absolute bottom-5 left-5 text-white"><p className="display-font text-3xl font-semibold">Avena</p><p className="text-xs text-white/70">Հայկական հոգի, միջերկրածովյան ռիթմ</p></div></div>
           <div className="flex items-center justify-between p-4"><div><p className="text-sm font-bold">avena.menurio.store</p><p className="text-xs text-muted">Website preview</p></div><span className="size-8 rounded-full" style={{ backgroundColor: brandColor }} /></div>
         </div>
         <div className="rounded-3xl border border-ink/10 bg-white p-5 shadow-sm">

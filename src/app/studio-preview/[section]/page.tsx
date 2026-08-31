@@ -76,7 +76,7 @@ const sectionContent: Record<StudioSectionSlug, SectionConfig> = {
     },
     stats: [
       { label: "Public status", value: "Published", detail: "Last updated 24 min ago", icon: Eye },
-      { label: "Languages", value: "3 active", detail: "English, Armenian, Russian", icon: Languages },
+      { label: "Languages", value: "3 active", detail: "Armenian, English, Russian", icon: Languages },
       { label: "Guest options", value: "2 enabled", detail: "Delivery and pickup", icon: ShoppingBag },
     ],
     listTitle: "Guest information",
@@ -187,7 +187,7 @@ const sectionContent: Record<StudioSectionSlug, SectionConfig> = {
     listTitle: "QR destinations",
     listDescription: "Permanent links remain stable after slug or domain changes",
     rows: [
-      { title: "Main dining room", description: "12 table cards · English default", meta: "1,764 scans this month", status: "Live", tone: "green" },
+      { title: "Main dining room", description: "12 table cards · Armenian default", meta: "1,764 scans this month", status: "Live", tone: "green" },
       { title: "Terrace", description: "8 table cards · Armenian default", meta: "1,048 scans this month", status: "Live", tone: "green" },
       { title: "Takeaway counter", description: "Counter stand · Menu and pickup", meta: "742 scans this month", status: "Live", tone: "green" },
       { title: "Hotel reception", description: "Room-service menu concept", meta: "250 scans this month", status: "Draft", tone: "neutral" },
@@ -325,7 +325,7 @@ const sectionContent: Record<StudioSectionSlug, SectionConfig> = {
     listDescription: "A transparent preview of what is active and what requires an upgrade",
     rows: [
       { title: "Restaurant website and QR menu", description: "Public pages, menu and permanent QR destination", meta: "Included in the current free period", status: "Included", tone: "green" },
-      { title: "Multilingual menu", description: "English, Armenian and Russian", meta: "Three languages active in the prototype", status: "Included", tone: "green" },
+      { title: "Multilingual menu", description: "Armenian, English and Russian", meta: "Three languages active in the prototype", status: "Included", tone: "green" },
       { title: "Orders and analytics", description: "Operational and growth workspace previews", meta: "Plan availability shown on pricing", status: "Preview", tone: "blue" },
       { title: "Custom domain", description: "Connect an apex domain or subdomain", meta: "Available on PRO+", status: "PRO+", tone: "brand" },
     ],
@@ -352,14 +352,14 @@ const sectionContent: Record<StudioSectionSlug, SectionConfig> = {
       description: "Core preferences are configured; backend persistence will be connected separately.",
     },
     stats: [
-      { label: "Default language", value: "English", detail: "Armenian and Russian enabled", icon: Languages },
+      { label: "Default language", value: "Armenian", detail: "English and Russian enabled", icon: Languages },
       { label: "Time zone", value: "Yerevan", detail: "GMT+4 · Asia/Yerevan", icon: Clock3 },
       { label: "Notifications", value: "3 channels", detail: "Orders, publishing, reports", icon: BellRing },
     ],
     listTitle: "Preference summary",
     listDescription: "Current values represented in the visual prototype",
     rows: [
-      { title: "Regional settings", description: "English · AMD · Asia/Yerevan", meta: "Numbers and dates follow local formats", status: "Configured", tone: "green" },
+      { title: "Regional settings", description: "Armenian · AMD · Asia/Yerevan", meta: "Numbers and dates follow local formats", status: "Configured", tone: "green" },
       { title: "Order notifications", description: "New order and delayed-order alerts", meta: "Dashboard and email selected", status: "Enabled", tone: "green" },
       { title: "Weekly performance report", description: "Summary delivered every Monday", meta: "Owner and manager recipients", status: "Enabled", tone: "blue" },
       { title: "Data export", description: "Menu and analytics export", meta: "Backend export workflow pending", status: "Planned", tone: "neutral" },

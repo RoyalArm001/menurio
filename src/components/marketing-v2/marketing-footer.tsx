@@ -31,7 +31,7 @@ function FooterLinkGroup({
 }
 
 function MarketingFooterInner() {
-  const { lang, marketing: t } = useAppLanguage("en");
+  const { lang, marketing: t } = useAppLanguage();
 
   const exploreLinks = [
     { label: t.nav.product, href: marketingHref("/features", lang) },
@@ -71,7 +71,13 @@ function MarketingFooterInner() {
         </div>
         <div className="flex flex-col gap-3 pt-7 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Menurio.</p>
-          <p>Crafted in Armenia for hospitality everywhere.</p>
+          <p>
+            {lang === "hy"
+              ? "Ստեղծված է Հայաստանում՝ հյուրընկալության բիզնեսների համար ամբողջ աշխարհում։"
+              : lang === "ru"
+                ? "Создано в Армении для ресторанного бизнеса по всему миру."
+                : "Crafted in Armenia for hospitality everywhere."}
+          </p>
         </div>
       </div>
     </footer>

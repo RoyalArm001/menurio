@@ -598,7 +598,7 @@ const MARKETING: Record<PublicLanguage, MarketingUi> = {
 
 export function getMarketingUi(lang: string): MarketingUi {
   if (lang === "hy" || lang === "ru" || lang === "en") return MARKETING[lang];
-  return MARKETING.en;
+  return MARKETING.hy;
 }
 
 export function marketingHref(href: string, lang: PublicLanguage): string {

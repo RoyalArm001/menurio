@@ -17,13 +17,13 @@ const display = Fraunces({
 });
 
 const defaultDescription =
-  "Create a fast restaurant website, multilingual QR menu, branded ordering experience, SEO pages and analytics in one platform.";
+  "Ստեղծեք արագ ռեստորանային կայք, բազմալեզու QR մենյու, պատվերների փորձ, SEO էջեր և analytics մեկ հարթակում։";
 
 export const metadata: Metadata = {
   metadataBase: new URL(getPlatformBaseUrl()),
   applicationName: "Menurio",
   title: {
-    default: "Menurio for Restaurants",
+    default: "Menurio ռեստորանների համար",
     template: "%s - Menurio",
   },
   description: defaultDescription,
@@ -43,13 +43,13 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: "Menurio",
-    title: "Menurio for Restaurants",
+    title: "Menurio ռեստորանների համար",
     description: defaultDescription,
-    locale: "en_US",
+    locale: "hy_AM",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Menurio for Restaurants",
+    title: "Menurio ռեստորանների համար",
     description: defaultDescription,
   },
   robots: {
@@ -96,7 +96,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      lang="en"
+      lang="hy"
       className={`${sans.variable} ${display.variable}`}
       suppressHydrationWarning
     >

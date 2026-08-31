@@ -25,6 +25,24 @@ function getProductName(product: MenuProduct, lang: Lang) {
   return product.name;
 }
 
+function getProductDescription(product: MenuProduct, lang: Lang) {
+  if (lang === "hy") return product.armenianDescription ?? product.description;
+  if (lang === "ru") return product.russianDescription ?? product.description;
+  return product.description;
+}
+
+function getProductIngredients(product: MenuProduct, lang: Lang) {
+  if (lang === "hy") return product.armenianIngredients ?? product.ingredients;
+  if (lang === "ru") return product.russianIngredients ?? product.ingredients;
+  return product.ingredients;
+}
+
+function getCategoryName(category: (typeof categories)[number], lang: Lang) {
+  if (lang === "hy") return category.armenianName ?? category.name;
+  if (lang === "ru") return category.russianName ?? category.name;
+  return category.name;
+}
+
 export default function DemoMenuPageClient() {
   const searchParams = useSearchParams();
   const initialDish = searchParams.get("dish");
@@ -54,7 +72,11 @@ export default function DemoMenuPageClient() {
           p.armenianName,
           p.russianName ?? "",
           p.description,
+          p.armenianDescription ?? "",
+          p.russianDescription ?? "",
           ...p.ingredients,
+          ...(p.armenianIngredients ?? []),
+          ...(p.russianIngredients ?? []),
         ]
           .join(" ")
           .toLocaleLowerCase()
@@ -73,25 +95,26 @@ export default function DemoMenuPageClient() {
     { id: "all", label: ui.all, count: products.length },
     ...categories.map((c) => ({
       id: c.id,
-      label: c.name,
+      label: getCategoryName(c, lang),
       count: products.filter((product) => product.category === c.id).length,
     })),
   ];
 
   function handleAdd(product: MenuProduct) {
     if (!product.available) return;
+    const name = getProductName(product, lang);
     addItem({
       id: product.id,
-      name: product.name,
+      name,
       price: product.price,
       image: product.image,
       available: product.available,
     });
-    push(`${product.name} added to cart`, "success");
+    push(`${name} · ${ui.addToCart}`, "success");
   }
 
   function handleCheckout() {
-    push("Order submitted (demo only — backend coming soon)", "success");
+    push(ui.orderSubmitted, "success");
     clear();
     setCartOpen(false);
   }
@@ -133,6 +156,12 @@ export default function DemoMenuPageClient() {
             product={{
               ...product,
               name: getProductName(product, lang),
+              description: getProductDescription(product, lang),
+            }}
+            labels={{
+              soldOut: ui.soldOut,
+              addToCart: ui.addToCart,
+              caloriesSuffix: ui.caloriesSuffix,
             }}
             onSelect={() => setSelected(product)}
             onAdd={() => handleAdd(product)}
@@ -142,7 +171,7 @@ export default function DemoMenuPageClient() {
 
       {filtered.length === 0 ? (
         <p className="py-16 text-center text-[var(--r-muted)]">
-          No dishes match your search.
+          {ui.noDishes}
         </p>
       ) : null}
 
@@ -152,7 +181,9 @@ export default function DemoMenuPageClient() {
           onClick={() => setCartOpen(true)}
           className="fixed bottom-5 left-4 right-4 z-30 flex items-center justify-between rounded-full bg-[var(--r-primary)] px-5 py-4 font-semibold text-white shadow-float sm:hidden"
         >
-          <span>View cart ({count})</span>
+          <span>
+            {ui.viewCart} ({count})
+          </span>
           <span>{formatPrice(total)}</span>
         </button>
       ) : null}
@@ -168,7 +199,7 @@ export default function DemoMenuPageClient() {
             <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-[20px] bg-[var(--r-bg)]">
               <Image
                 src={selected.image}
-                alt={selected.name}
+                alt={getProductName(selected, lang)}
                 fill
                 sizes="(max-width: 640px) 100vw, 640px"
                 className="object-cover"
@@ -180,29 +211,29 @@ export default function DemoMenuPageClient() {
               ))}
               {!selected.available ? (
                 <span className="rounded-full bg-ink/10 px-2 py-0.5 text-xs font-bold uppercase">
-                  Sold Out
+                  {ui.soldOut}
                 </span>
               ) : null}
             </div>
             <p className="text-sm leading-7 text-[var(--r-muted)]">
-              {selected.description}
+              {getProductDescription(selected, lang)}
             </p>
             <div className="mt-5 space-y-3 text-sm">
               <p>
-                <strong>Ingredients:</strong>{" "}
-                {selected.ingredients.join(", ")}
+                <strong>{ui.ingredients}:</strong>{" "}
+                {getProductIngredients(selected, lang).join(", ")}
               </p>
               <p className="flex items-center gap-2">
                 <Flame className="size-4 text-[var(--r-primary)]" />
-                {selected.calories} kcal
+                {selected.calories} {ui.caloriesSuffix}
               </p>
               {selected.allergens.length ? (
                 <p>
-                  <strong>Allergens:</strong> {selected.allergens.join(", ")}
+                  <strong>{ui.allergens}:</strong> {selected.allergens.join(", ")}
                 </p>
               ) : (
                 <p className="flex items-center gap-2 text-success">
-                  <Leaf className="size-4" /> No major allergens listed
+                  <Leaf className="size-4" /> {ui.noMajorAllergens}
                 </p>
               )}
             </div>
@@ -217,16 +248,16 @@ export default function DemoMenuPageClient() {
                   setSelected(null);
                 }}
               >
-                Add to cart
+                {ui.addToCart}
               </Button>
             </div>
           </div>
         ) : null}
       </Modal>
 
-      <Drawer open={cartOpen} onClose={() => setCartOpen(false)} title="Your order">
+      <Drawer open={cartOpen} onClose={() => setCartOpen(false)} title={ui.cart}>
         {items.length === 0 ? (
-          <p className="text-center text-[var(--r-muted)]">Your cart is empty.</p>
+          <p className="text-center text-[var(--r-muted)]">{ui.emptyCart}</p>
         ) : (
           <div className="space-y-4">
             {items.map((item) => (
@@ -275,7 +306,7 @@ export default function DemoMenuPageClient() {
                       onClick={() => removeItem(item.product.id)}
                       className="ml-auto text-xs font-semibold text-red-600"
                     >
-                      Remove
+                      {ui.remove}
                     </button>
                   </div>
                 </div>
@@ -283,14 +314,14 @@ export default function DemoMenuPageClient() {
             ))}
             <div className="border-t border-[var(--r-line)] pt-4">
               <div className="flex justify-between text-lg font-bold">
-                <span>Total</span>
+                <span>{ui.total}</span>
                 <span>{formatPrice(total)}</span>
               </div>
               <Button className="mt-4 w-full" onClick={handleCheckout}>
-                Submit order
+                {ui.submitOrder}
               </Button>
               <p className="mt-2 text-center text-xs text-[var(--r-muted)]">
-                Demo checkout — order API integration coming soon
+                {ui.demoCheckoutNote}
               </p>
             </div>
           </div>

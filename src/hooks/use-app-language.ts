@@ -12,7 +12,7 @@ import {
   type PublicSiteUi,
 } from "@/lib/i18n/public-languages";
 
-export function useAppLanguage(defaultLanguage: PublicLanguage = "en"): {
+export function useAppLanguage(defaultLanguage: PublicLanguage = "hy"): {
   lang: PublicLanguage;
   ui: PublicSiteUi;
   marketing: MarketingUi;

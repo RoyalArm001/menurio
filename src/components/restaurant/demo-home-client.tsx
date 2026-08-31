@@ -13,8 +13,10 @@ import {
   UtensilsCrossed,
   Truck,
   ShoppingBag,
+  Check,
+  ArrowRight,
 } from "lucide-react";
-import { demoRestaurant, products } from "@/data/mock";
+import { demoRestaurant, pricingPlans, products } from "@/data/mock";
 import type { MenuProduct } from "@/data/mock";
 import { formatPrice } from "@/lib/format";
 import { buttonStyles } from "@/components/ui/button";
@@ -29,6 +31,140 @@ function getProductName(product: MenuProduct, lang: PublicLanguage) {
   if (lang === "hy") return product.armenianName;
   if (lang === "ru") return product.russianName ?? product.name;
   return product.name;
+}
+
+const planDemoCopy: Record<string, { outcome: string; unlocks: string[] }> = {
+  FREE: {
+    outcome: "Սկսելու համար՝ կայք, QR մենյու և հիմնական SEO",
+    unlocks: ["12 ամիս անվճար", "1 լեզու", "հիմնական analytics"],
+  },
+  START: {
+    outcome: "Ավելի պրոֆեսիոնալ տեսք՝ լուսանկարներով և brand գույներով",
+    unlocks: ["մինչև 3 լեզու", "անսահմանափակ ապրանքներ", "custom QR design"],
+  },
+  PRO: {
+    outcome: "Պատվերներ, advanced SEO և աճի գործիքներ",
+    unlocks: ["մինչև 5 լեզու", "cart & orders", "advanced analytics"],
+  },
+  PRO_PLUS: {
+    outcome: "Մեծանալու համար՝ branch-եր, team և custom domain",
+    unlocks: ["մինչև 8 լեզու", "custom domain", "roles & permissions"],
+  },
+};
+
+function DemoPackagesPreview({ lang }: { lang: PublicLanguage }) {
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <div className="overflow-hidden rounded-[30px] border border-[var(--r-line)] bg-[var(--r-surface)] shadow-sm">
+        <div className="grid gap-6 border-b border-[var(--r-line)] bg-[var(--r-bg)]/70 p-6 lg:grid-cols-[0.9fr_1.1fr] lg:p-8">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--r-primary)]">
+              Միայն demo-ում
+            </p>
+            <h2 className="display-font mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+              {pricingPlans.length} փաթեթ՝ տարբեր ռեստորանների համար
+            </h2>
+          </div>
+          <p className="text-sm leading-7 text-[var(--r-muted)] lg:max-w-xl">
+            Այս demo-ն ցույց է տալիս ոչ միայն ռեստորանի կայքը, այլ նաև Menurio-ի
+            առաջարկների տարբերությունը․ սկսեք 12 ամիս անվճարից, հետո բացեք
+            լեզուներ, պատվերներ, analytics, custom domain և branch-երի կառավարում։
+          </p>
+        </div>
+
+        <div className="grid gap-3 p-3 sm:grid-cols-2 lg:grid-cols-4">
+          {pricingPlans.map((plan) => {
+            const copy = planDemoCopy[plan.id];
+            const isFeatured = plan.id === "PRO";
+            const priceLabel =
+              plan.price === "0" ? "0 ֏" : `${plan.price} ֏`;
+
+            return (
+              <article
+                key={plan.id}
+                className={[
+                  "rounded-[24px] border p-5 transition hover:-translate-y-0.5",
+                  isFeatured
+                    ? "border-[var(--r-primary)] bg-[var(--r-primary)] text-white shadow-lg"
+                    : "border-[var(--r-line)] bg-[var(--r-bg)]",
+                ].join(" ")}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-sm font-black tracking-[0.18em]">
+                    {plan.name}
+                  </h3>
+                  <span
+                    className={[
+                      "rounded-full px-2.5 py-1 text-[10px] font-bold",
+                      isFeatured
+                        ? "bg-white/15 text-white"
+                        : "bg-[var(--r-primary)]/10 text-[var(--r-primary)]",
+                    ].join(" ")}
+                  >
+                    {plan.features.length} հնարավորություն
+                  </span>
+                </div>
+                <div className="mt-5 flex items-end gap-2">
+                  <p className="display-font text-3xl font-semibold leading-none">
+                    {priceLabel}
+                  </p>
+                  <p
+                    className={[
+                      "text-xs",
+                      isFeatured ? "text-white/70" : "text-[var(--r-muted)]",
+                    ].join(" ")}
+                  >
+                    {plan.price === "0" ? "12 ամիս" : "ամիս"}
+                  </p>
+                </div>
+                <p
+                  className={[
+                    "mt-4 min-h-12 text-sm leading-6",
+                    isFeatured ? "text-white/78" : "text-[var(--r-muted)]",
+                  ].join(" ")}
+                >
+                  {copy?.outcome ?? plan.description}
+                </p>
+                <ul className="mt-5 space-y-2.5">
+                  {(copy?.unlocks ?? plan.features.slice(0, 3).map((feature) => feature.label)).map(
+                    (item) => (
+                      <li key={item} className="flex gap-2 text-xs leading-5">
+                        <span
+                          className={[
+                            "mt-0.5 grid size-4 shrink-0 place-items-center rounded-full",
+                            isFeatured
+                              ? "bg-white/15 text-white"
+                              : "bg-[var(--r-primary)]/10 text-[var(--r-primary)]",
+                          ].join(" ")}
+                        >
+                          <Check className="size-2.5" strokeWidth={3} />
+                        </span>
+                        <span>{item}</span>
+                      </li>
+                    ),
+                  )}
+                </ul>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="flex flex-col gap-3 border-t border-[var(--r-line)] p-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs leading-5 text-[var(--r-muted)]">
+            Հաճախորդը տեսնում է տարբերությունը՝ ինչ է բացվում յուրաքանչյուր
+            փաթեթում, առանց ծանր աղյուսակի։
+          </p>
+          <Link
+            href={withLangParam("/pricing", lang)}
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--r-primary)] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5"
+          >
+            Համեմատել բոլոր փաթեթները
+            <ArrowRight className="size-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function DemoRestaurantHomeInner() {
@@ -106,6 +242,8 @@ function DemoRestaurantHomeInner() {
           </div>
         ))}
       </section>
+
+      <DemoPackagesPreview lang={lang} />
 
       <section className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
         <div className="mb-8 flex items-end justify-between gap-4">

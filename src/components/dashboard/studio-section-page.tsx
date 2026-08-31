@@ -254,7 +254,7 @@ const sectionConfig: Record<StudioSectionSlug, SectionConfig> = {
     metrics: [
       { label: "Current plan", value: "FREE", detail: "347 days left" },
       { label: "Products", value: "19 / 40", detail: "48% used" },
-      { label: "Languages", value: "1 / 1", detail: "English active" },
+      { label: "Languages", value: "1 / 1", detail: "Armenian active" },
     ],
     rows: [
       { title: "Restaurant website", description: "Published with Menurio platform URL", value: "Included", tone: "green" },
@@ -277,12 +277,12 @@ const sectionConfig: Record<StudioSectionSlug, SectionConfig> = {
     panelTitle: "Restaurant defaults",
     panelDescription: "Shared settings for menus, orders and reporting",
     metrics: [
-      { label: "Default language", value: "English", detail: "Armenian ready" },
+      { label: "Default language", value: "Armenian", detail: "English and Russian ready" },
       { label: "Currency", value: "AMD", detail: "֏ display" },
       { label: "Time zone", value: "Yerevan", detail: "UTC +4" },
     ],
     rows: [
-      { title: "Languages", description: "English primary · Armenian and Russian drafts", value: "3 configured", tone: "blue" },
+      { title: "Languages", description: "Armenian primary · English and Russian drafts", value: "3 configured", tone: "blue" },
       { title: "Order preferences", description: "Pickup and delivery · 20 minute lead time", value: "Active", tone: "green" },
       { title: "Notifications", description: "New orders, publishing and weekly summary", value: "3 enabled", tone: "green" },
       { title: "Regional format", description: "Asia/Yerevan · Armenian dram", value: "Configured", tone: "neutral" },

@@ -7,7 +7,11 @@ export type MenuProduct = {
   armenianName: string;
   russianName?: string;
   description: string;
+  armenianDescription?: string;
+  russianDescription?: string;
   ingredients: string[];
+  armenianIngredients?: string[];
+  russianIngredients?: string[];
   price: number;
   compareAtPrice?: number;
   category: string;
@@ -22,27 +26,29 @@ export type MenuProduct = {
 export type MenuCategory = {
   id: string;
   name: string;
+  armenianName?: string;
+  russianName?: string;
   count: number;
 };
 
 export const demoRestaurant = {
   slug: "demo-restaurant",
   name: "Avena",
-  tagline: "Armenian soul, Mediterranean rhythm",
+  tagline: "Հայկական հոգի, միջերկրածովյան ռիթմ",
   description:
-    "Avena is a neighborhood restaurant in the heart of Yerevan — seasonal plates, Armenian hospitality, and a menu that works beautifully on every screen.",
+    "Avena-ն Երևանի սրտում գտնվող ռեստորան է՝ սեզոնային ուտեստներով, հայկական հյուրընկալությամբ և մենյուով, որը գեղեցիկ է աշխատում ցանկացած էկրանին։",
   status: "Open" as const,
   logo: "/images/avena-logo.svg",
   cover: "/images/avena-interior.png",
-  address: "12 Abovyan Street, Yerevan 0001",
+  address: "Աբովյան 12, Երևան 0001",
   phone: "+374 10 58 18 18",
   email: "hello@avena.am",
   instagram: "@avena.yerevan",
   facebook: "Avena Yerevan",
   hours: [
-    { days: "Monday – Thursday", time: "09:00 – 23:00" },
-    { days: "Friday – Saturday", time: "09:00 – 00:00" },
-    { days: "Sunday", time: "10:00 – 23:00" },
+    { days: "Երկուշաբթի – Հինգշաբթի", time: "09:00 – 23:00" },
+    { days: "Ուրբաթ – Շաբաթ", time: "09:00 – 00:00" },
+    { days: "Կիրակի", time: "10:00 – 23:00" },
   ],
   services: {
     dineIn: true,
@@ -51,27 +57,27 @@ export const demoRestaurant = {
     tableOrdering: true,
   },
   gallery: [
-    { id: "g1", title: "Dining room", image: "/images/avena-interior.png" },
-    { id: "g2", title: "Seasonal plates", image: "/images/burrata.png" },
-    { id: "g3", title: "From the fire", image: "/images/trout.png" },
-    { id: "g4", title: "Sweet finish", image: "/images/pavlova.png" },
+    { id: "g1", title: "Հյուրընկալ սրահ", image: "/images/avena-interior.png" },
+    { id: "g2", title: "Սեզոնային ափսեներ", image: "/images/burrata.png" },
+    { id: "g3", title: "Կրակից՝ սեղանին", image: "/images/trout.png" },
+    { id: "g4", title: "Քաղցր ավարտ", image: "/images/pavlova.png" },
   ],
   about:
-    "Founded in 2019, Avena celebrates Armenian produce with Mediterranean technique. Our team sources from local farms, bakes lavash in-house, and designs a menu that reads beautifully in the dining room and on your phone.",
+    "Avena-ն հիմնադրվել է 2019-ին և ներկայացնում է հայկական մթերքը միջերկրածովյան մոտեցմամբ։ Թիմը աշխատում է տեղական ֆերմաների հետ, լավաշը թխում է տեղում և ստեղծում մենյու, որը նույնքան գեղեցիկ է սրահում, որքան հեռախոսի էկրանին։",
   themeId: "modern",
   languages: [
-    { code: "en", label: "English", flag: "🇬🇧" },
     { code: "hy", label: "Armenian", flag: "🇦🇲" },
+    { code: "en", label: "English", flag: "🇬🇧" },
     { code: "ru", label: "Russian", flag: "🇷🇺" },
   ],
 };
 
 export const categories: MenuCategory[] = [
-  { id: "breakfast", name: "Breakfast", count: 2 },
-  { id: "small-plates", name: "Small Plates", count: 2 },
-  { id: "mains", name: "Mains", count: 2 },
-  { id: "desserts", name: "Desserts", count: 2 },
-  { id: "drinks", name: "Drinks", count: 1 },
+  { id: "breakfast", name: "Breakfast", armenianName: "Նախաճաշ", russianName: "Завтрак", count: 2 },
+  { id: "small-plates", name: "Small Plates", armenianName: "Փոքր ափսեներ", russianName: "Закуски", count: 2 },
+  { id: "mains", name: "Mains", armenianName: "Հիմնական ուտեստներ", russianName: "Основные блюда", count: 2 },
+  { id: "desserts", name: "Desserts", armenianName: "Աղանդեր", russianName: "Десерты", count: 2 },
+  { id: "drinks", name: "Drinks", armenianName: "Ըմպելիքներ", russianName: "Напитки", count: 1 },
 ];
 
 export const products: MenuProduct[] = [
@@ -83,7 +89,10 @@ export const products: MenuProduct[] = [
     russianName: "Бurrata с томатами",
     description:
       "Heirloom tomatoes, basil oil, toasted lavash chips and pomegranate molasses.",
+    armenianDescription:
+      "Սեզոնային լոլիկ, ռեհանի յուղ, տապակած լավաշի չիպսեր և նռան դոշաբ։",
     ingredients: ["Burrata", "Heirloom tomatoes", "Basil oil", "Lavash", "Pomegranate"],
+    armenianIngredients: ["Բուրատա", "սեզոնային լոլիկ", "ռեհանի յուղ", "լավաշ", "նուռ"],
     price: 4900,
     category: "small-plates",
     image: "/images/burrata.png",
@@ -101,7 +110,10 @@ export const products: MenuProduct[] = [
     russianName: "Манты с бараниной",
     description:
       "Crisp dumplings, garlic yogurt, paprika butter and fresh herbs.",
+    armenianDescription:
+      "Խրթխրթան մանթի, սխտորով մածուն, պապրիկայով կարագ և թարմ կանաչի։",
     ingredients: ["Lamb", "Yogurt", "Paprika butter", "Herbs", "Dough"],
+    armenianIngredients: ["Գառան միս", "մածուն", "պապրիկայով կարագ", "կանաչի", "խմոր"],
     price: 5600,
     compareAtPrice: 6200,
     category: "mains",
@@ -119,7 +131,10 @@ export const products: MenuProduct[] = [
     armenianName: "Իշխան կրակի վրա",
     russianName: "Форель на углях",
     description: "Wilted greens, capers, lemon beurre blanc and dill.",
+    armenianDescription:
+      "Թեթև շոգեխաշած կանաչի, կապերս, կիտրոնային սոուս և սամիթ։",
     ingredients: ["Trout", "Capers", "Butter", "Dill", "Seasonal greens"],
+    armenianIngredients: ["Իշխան", "կապերս", "կարագ", "սամիթ", "սեզոնային կանաչի"],
     price: 7200,
     category: "mains",
     image: "/images/trout.png",
@@ -136,7 +151,10 @@ export const products: MenuProduct[] = [
     armenianName: "Ծիրանի պավլովա",
     description:
       "Roasted apricot, whipped cream, mountain honey and pistachio.",
+    armenianDescription:
+      "Տապակած ծիրան, հարած սերուցք, լեռնային մեղր և պիստակ։",
     ingredients: ["Apricot", "Meringue", "Cream", "Honey", "Pistachio"],
+    armenianIngredients: ["Ծիրան", "բեզե", "սերուցք", "մեղր", "պիստակ"],
     price: 3200,
     category: "desserts",
     image: "/images/pavlova.png",
@@ -152,7 +170,10 @@ export const products: MenuProduct[] = [
     name: "Garden Herb Omelette",
     armenianName: "Կանաչով ձվածեղ",
     description: "Farm eggs, chanakh cheese, seasonal herbs and sourdough.",
+    armenianDescription:
+      "Ֆերմերային ձու, չանախ պանիր, սեզոնային կանաչի և թթխմորով հաց։",
     ingredients: ["Eggs", "Chanakh cheese", "Herbs", "Sourdough"],
+    armenianIngredients: ["Ձու", "չանախ պանիր", "կանաչի", "թթխմորով հաց"],
     price: 3600,
     category: "breakfast",
     image: "/images/dish-omelette.svg",
@@ -168,7 +189,10 @@ export const products: MenuProduct[] = [
     name: "Wild Mushroom Toast",
     armenianName: "Սնկով տոստ",
     description: "Forest mushrooms, tarragon, labneh and grilled sourdough.",
+    armenianDescription:
+      "Անտառային սունկ, թարխուն, լաբնե և խորոված թթխմորով հաց։",
     ingredients: ["Mushrooms", "Labneh", "Tarragon", "Sourdough"],
+    armenianIngredients: ["Սունկ", "լաբնե", "թարխուն", "թթխմորով հաց"],
     price: 4100,
     category: "breakfast",
     image: "/images/dish-mushroom.svg",
@@ -184,7 +208,10 @@ export const products: MenuProduct[] = [
     name: "Roasted Cauliflower",
     armenianName: "Տապակած ծաղկակաղամբ",
     description: "Tahini, preserved lemon, herbs and toasted sesame.",
+    armenianDescription:
+      "Թահին, պահածոյացված կիտրոն, կանաչի և տապակած քունջութ։",
     ingredients: ["Cauliflower", "Tahini", "Preserved lemon", "Sesame"],
+    armenianIngredients: ["Ծաղկակաղամբ", "թահին", "կիտրոն", "քունջութ"],
     price: 3900,
     category: "small-plates",
     image: "/images/dish-cauliflower.svg",
@@ -200,7 +227,10 @@ export const products: MenuProduct[] = [
     name: "Burnt Honey Cheesecake",
     armenianName: "Մեղրով չիզքեյք",
     description: "Caramelized honey, sea salt and crème fraîche.",
+    armenianDescription:
+      "Կարամելացված մեղր, ծովի աղ և նուրբ կրեմ-ֆրեշ։",
     ingredients: ["Cream cheese", "Honey", "Pastry", "Crème fraîche"],
+    armenianIngredients: ["Կրեմ պանիր", "մեղր", "խմոր", "կրեմ-ֆրեշ"],
     price: 2900,
     category: "desserts",
     image: "/images/dish-cheesecake.svg",
@@ -216,7 +246,10 @@ export const products: MenuProduct[] = [
     name: "Armenian Coffee",
     armenianName: "Հայկական սուրճ",
     description: "Traditional copper pot service with cardamom and lokum.",
+    armenianDescription:
+      "Ավանդական հայկական սուրճ՝ պղնձե ջազվեով, հիլով և լոխումով։",
     ingredients: ["Coffee", "Cardamom"],
+    armenianIngredients: ["Սուրճ", "հիլ"],
     price: 1200,
     category: "drinks",
     image: "/images/dish-coffee.svg",

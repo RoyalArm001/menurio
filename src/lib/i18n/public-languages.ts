@@ -34,6 +34,14 @@ export type PublicSiteUi = {
   checkout: string;
   noDishes: string;
   emptyMenu: string;
+  viewCart: string;
+  total: string;
+  submitOrder: string;
+  ingredients: string;
+  allergens: string;
+  noMajorAllergens: string;
+  caloriesSuffix: string;
+  demoCheckoutNote: string;
   table: string;
   callWaiter: string;
   requestBill: string;
@@ -89,6 +97,14 @@ export const PUBLIC_SITE_UI: Record<string, PublicSiteUi> = {
     checkout: "Complete your order",
     noDishes: "No dishes match your search.",
     emptyMenu: "Menu is being prepared. Check back soon.",
+    viewCart: "View cart",
+    total: "Total",
+    submitOrder: "Submit order",
+    ingredients: "Ingredients",
+    allergens: "Allergens",
+    noMajorAllergens: "No major allergens listed",
+    caloriesSuffix: "kcal",
+    demoCheckoutNote: "Demo checkout — order API integration coming soon",
     table: "Table",
     callWaiter: "Call waiter",
     requestBill: "Request bill",
@@ -142,6 +158,14 @@ export const PUBLIC_SITE_UI: Record<string, PublicSiteUi> = {
     checkout: "Ավարտել պատվերը",
     noDishes: "Համընկնող ճաշատեսակ չկա։",
     emptyMenu: "Մենյուն պատրաստվում է։ Շուտով կլինի։",
+    viewCart: "Դիտել զամբյուղը",
+    total: "Ընդամենը",
+    submitOrder: "Ուղարկել պատվերը",
+    ingredients: "Բաղադրիչներ",
+    allergens: "Ալերգեններ",
+    noMajorAllergens: "Խոշոր ալերգեններ նշված չեն",
+    caloriesSuffix: "կկալ",
+    demoCheckoutNote: "Դեմո checkout — պատվերների API ինտեգրումը կմիանա backend փուլում",
     table: "Սեղան",
     callWaiter: "Կանչել մատուցողին",
     requestBill: "Հաշիվ խնդրել",
@@ -195,6 +219,14 @@ export const PUBLIC_SITE_UI: Record<string, PublicSiteUi> = {
     checkout: "Оформить заказ",
     noDishes: "Блюда не найдены.",
     emptyMenu: "Меню скоро будет готово.",
+    viewCart: "Открыть корзину",
+    total: "Итого",
+    submitOrder: "Отправить заказ",
+    ingredients: "Состав",
+    allergens: "Аллергены",
+    noMajorAllergens: "Основные аллергены не указаны",
+    caloriesSuffix: "ккал",
+    demoCheckoutNote: "Демо checkout — API заказов будет подключён на backend этапе",
     table: "Стол",
     callWaiter: "Позвать официанта",
     requestBill: "Попросить счёт",
@@ -229,7 +261,7 @@ export const PUBLIC_SITE_UI: Record<string, PublicSiteUi> = {
 export function resolvePublicLanguage(
   code: string | null | undefined,
   supportedLanguages: string[] = [...PUBLIC_LANGUAGES],
-  defaultLanguage = "en",
+  defaultLanguage = "hy",
 ): PublicLanguage {
   const normalized = code?.trim().toLowerCase();
   const supported = supportedLanguages.map((language) => language.trim());
@@ -242,11 +274,11 @@ export function resolvePublicLanguage(
 
   if (matchingLanguage) return matchingLanguage;
   if (defaultSupportedLanguage) return defaultSupportedLanguage;
-  return supported[0] ?? "en";
+  return supported[0] ?? "hy";
 }
 
 export function getPublicSiteUi(language: string | null | undefined): PublicSiteUi {
-  return PUBLIC_SITE_UI[language?.toLowerCase() ?? ""] ?? PUBLIC_SITE_UI.en;
+  return PUBLIC_SITE_UI[language?.toLowerCase() ?? ""] ?? PUBLIC_SITE_UI.hy;
 }
 
 /** @deprecated use getPublicSiteUi */

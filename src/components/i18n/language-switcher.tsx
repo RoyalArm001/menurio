@@ -8,7 +8,7 @@ import {
 } from "@/lib/i18n/public-languages";
 
 export function LanguageSwitcher({
-  defaultLanguage = "en",
+  defaultLanguage = "hy",
   supportedLanguages,
   className,
 }: {
@@ -28,7 +28,7 @@ export function LanguageSwitcher({
 
   const languages = supportedLanguages?.length
     ? supportedLanguages
-    : ["en", "hy", "ru"];
+    : ["hy", "en", "ru"];
 
   function setLanguage(code: string) {
     const params = new URLSearchParams(searchParams.toString());

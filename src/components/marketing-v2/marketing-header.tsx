@@ -11,7 +11,7 @@ import { useAppLanguage } from "@/hooks/use-app-language";
 import { marketingHref } from "@/lib/i18n/marketing";
 
 function MarketingHeaderInner({ homeHref = "" }: { homeHref?: string }) {
-  const { lang, marketing: t } = useAppLanguage("en");
+  const { lang, marketing: t } = useAppLanguage();
 
   const navigation = [
     { label: t.nav.product, href: "/features" },

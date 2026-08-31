@@ -27,7 +27,7 @@ const platformStepIcons = [LayoutTemplate, QrCode, Palette, ShoppingBag, BarChar
 const STEP_INTERVAL_MS = 4500;
 
 export function MarketingHomeHero() {
-  const { lang, marketing: t } = useAppLanguage("en");
+  const { lang, marketing: t } = useAppLanguage();
 
   return (
     <>
@@ -97,7 +97,7 @@ export function MarketingHomeHero() {
 }
 
 export function MarketingHomePlatformJourney() {
-  const { marketing: t } = useAppLanguage("en");
+  const { marketing: t } = useAppLanguage();
   const [activeStep, setActiveStep] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -254,7 +254,7 @@ export function MarketingHomePlatformJourney() {
 }
 
 export function MarketingHomeFinalCta() {
-  const { lang, marketing: t } = useAppLanguage("en");
+  const { lang, marketing: t } = useAppLanguage();
 
   return (
     <section id="story" className="scroll-mt-24 px-4 pb-4 sm:px-8 sm:pb-8">
@@ -295,7 +295,7 @@ export function MarketingHomeFinalCta() {
 }
 
 export function MarketingHomeProduct() {
-  const { lang, marketing: t } = useAppLanguage("en");
+  const { lang, marketing: t } = useAppLanguage();
 
   return (
     <section id="product" className="scroll-mt-24 border-y border-line bg-cream/55 py-20 sm:py-28 lg:py-32">
@@ -349,7 +349,7 @@ export function MarketingHomeProduct() {
 }
 
 export function MarketingHomeFaq() {
-  const { marketing: t } = useAppLanguage("en");
+  const { marketing: t } = useAppLanguage();
 
   return (
     <section id="faq" className="scroll-mt-24 py-20 sm:py-28 lg:py-32">

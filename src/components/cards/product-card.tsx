@@ -10,12 +10,22 @@ export function ProductCard({
   onSelect,
   onAdd,
   compact = false,
+  labels,
 }: {
   product: MenuProduct;
   onSelect?: () => void;
   onAdd?: () => void;
   compact?: boolean;
+  labels?: {
+    soldOut?: string;
+    addToCart?: string;
+    caloriesSuffix?: string;
+  };
 }) {
+  const soldOutLabel = labels?.soldOut ?? "Sold Out";
+  const addToCartLabel = labels?.addToCart ?? "Add to cart";
+  const caloriesSuffix = labels?.caloriesSuffix ?? "kcal";
+
   return (
     <article
       className={cn(
@@ -34,7 +44,7 @@ export function ProductCard({
           />
           {!product.available ? (
             <span className="absolute left-3 top-3 rounded-full bg-night/80 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
-              Sold Out
+              {soldOutLabel}
             </span>
           ) : null}
           <div className="absolute right-3 top-3 flex flex-wrap justify-end gap-1">
@@ -63,7 +73,9 @@ export function ProductCard({
             </div>
           </div>
           {!compact ? (
-            <p className="mt-3 text-xs text-muted">{product.calories} kcal</p>
+            <p className="mt-3 text-xs text-muted">
+              {product.calories} {caloriesSuffix}
+            </p>
           ) : null}
         </div>
       </button>
@@ -74,7 +86,7 @@ export function ProductCard({
             onClick={onAdd}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-night py-2.5 text-sm font-semibold text-white transition hover:bg-black"
           >
-            <Plus className="size-4" /> Add to cart
+            <Plus className="size-4" /> {addToCartLabel}
           </button>
         </div>
       ) : null}
