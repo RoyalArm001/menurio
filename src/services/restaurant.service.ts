@@ -173,3 +173,10 @@ export async function getDefaultBranch(restaurantId: string) {
     .limit(1);
   return branch ?? null;
 }
+
+export async function deleteRestaurantById(restaurantId: string) {
+  const db = getDb();
+  await db.delete(restaurants).where(eq(restaurants.id, restaurantId));
+  return { success: true };
+}
+

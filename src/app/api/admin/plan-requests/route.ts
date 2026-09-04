@@ -1,0 +1,21 @@
+import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { listAllPlanRequests } from "@/services/subscription.service";
+import {
+  applySecurityHeaders,
+  jsonError,
+} from "@/lib/security/middleware-helpers";
+
+export const dynamic = "force-dynamic";
+
+export async function GET() {
+  const session = await auth();
+  if (!session?.user?.id) return jsonError("Unauthorized", 401);
+
+  const ok = await isPlatformAdmin(session.user.id);
+  if (!ok) return jsonError("Forbidden", 403);
+
+  const requests = await listAllPlanRequests();
+  return applySecurityHeaders(NextResponse.json({ requests }));
+}

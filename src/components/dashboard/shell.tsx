@@ -17,6 +17,7 @@ import {
   Settings,
   Menu,
   X,
+  ShieldAlert,
 } from "lucide-react";
 import { useState } from "react";
 import { Wordmark } from "@/components/brand/wordmark";
@@ -42,9 +43,11 @@ const nav = [
 export function DashboardSidebar({
   mobileOpen,
   onClose,
+  isPlatformAdmin,
 }: {
   mobileOpen?: boolean;
   onClose?: () => void;
+  isPlatformAdmin?: boolean;
 }) {
   const pathname = usePathname();
   const { activeRestaurant, restaurants, setActiveRestaurantId, loading } =
@@ -69,7 +72,7 @@ export function DashboardSidebar({
         </p>
         {restaurants.length > 1 ? (
           <select
-            className="mt-2 w-full rounded-lg border border-line bg-white px-2 py-1 text-xs"
+            className="mt-2 w-full rounded-xl border border-line bg-surface px-2 py-1 text-xs"
             value={activeRestaurant?.id ?? ""}
             onChange={(e) => setActiveRestaurantId(e.target.value)}
           >
@@ -90,6 +93,18 @@ export function DashboardSidebar({
         ) : null}
       </div>
       <nav className="flex-1 space-y-1 overflow-y-auto p-3">
+        {isPlatformAdmin ? (
+          <div className="mb-3 border-b border-line pb-2">
+            <Link
+              href="/admin"
+              onClick={onClose}
+              className="flex items-center gap-3 rounded-2xl bg-amber-500/10 px-3 py-2.5 text-sm font-semibold text-amber-700 transition hover:bg-amber-500/20 dark:text-amber-300"
+            >
+              <ShieldAlert className="size-4 shrink-0 text-amber-600" />
+              Platform Admin
+            </Link>
+          </div>
+        ) : null}
         {nav.map(({ href, label, icon: Icon }) => {
           const active =
             href === "/dashboard"
@@ -123,9 +138,8 @@ export function DashboardSidebar({
       </aside>
       {mobileOpen ? (
         <div className="fixed inset-0 z-50 md:hidden">
-          <button
-            type="button"
-            className="absolute inset-0 bg-black/40"
+          <div
+            className="fixed inset-0 bg-ink/40 backdrop-blur-sm"
             onClick={onClose}
             aria-label="Close sidebar"
           />
@@ -141,9 +155,11 @@ export function DashboardSidebar({
 export function DashboardShell({
   children,
   userName,
+  isPlatformAdmin,
 }: {
   children: React.ReactNode;
   userName?: string;
+  isPlatformAdmin?: boolean;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -152,6 +168,7 @@ export function DashboardShell({
       <DashboardSidebar
         mobileOpen={mobileOpen}
         onClose={() => setMobileOpen(false)}
+        isPlatformAdmin={isPlatformAdmin}
       />
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex h-16 items-center justify-between border-b border-line bg-surface/80 px-4 backdrop-blur-xl sm:px-6">
@@ -163,9 +180,20 @@ export function DashboardShell({
           >
             <Menu className="size-5" />
           </button>
-          <p className="hidden text-sm text-muted md:block">
-            {userName ? `Signed in as ${userName}` : "Dashboard"}
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="hidden text-sm text-muted md:block">
+              {userName ? `Signed in as ${userName}` : "Dashboard"}
+            </p>
+            {isPlatformAdmin ? (
+              <Link
+                href="/admin"
+                className="hidden items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 hover:bg-amber-500/20 dark:text-amber-300 sm:inline-flex"
+              >
+                <ShieldAlert className="size-3.5 text-amber-600" />
+                Platform Admin
+              </Link>
+            ) : null}
+          </div>
           <div className="flex items-center gap-2">
             <form action={logoutAction}>
               <button

@@ -95,3 +95,10 @@ export const notificationDeliveryStatusEnum = mysqlEnum("notification_delivery_s
   "SENT",
   "FAILED",
 ]);
+
+export const planRequestStatusEnum = mysqlEnum("plan_request_status", [
+  "PENDING",
+  "APPROVED",
+  "REJECTED",
+]);
+

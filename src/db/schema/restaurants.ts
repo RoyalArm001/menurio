@@ -1,6 +1,7 @@
 import {
   boolean,
   json,
+  mysqlEnum,
   mysqlTable,
   text,
   timestamp,
@@ -13,6 +14,7 @@ import {
   memberRoleEnum,
   subscriptionPlanEnum,
   subscriptionStatusEnum,
+  planRequestStatusEnum,
 } from "./enums";
 
 export const restaurants = mysqlTable(
@@ -100,7 +102,43 @@ export const subscriptions = mysqlTable("subscriptions", {
   updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
 });
 
+export const planRequests = mysqlTable("plan_requests", {
+  id: pkId(),
+  restaurantId: refId("restaurant_id")
+    .notNull()
+    .references(() => restaurants.id, { onDelete: "cascade" }),
+  userId: refId("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  requestedPlan: mysqlEnum("requested_plan", [
+    "FREE",
+    "START",
+    "PRO",
+    "PRO_PLUS",
+  ]).notNull(),
+  currentPlan: mysqlEnum("current_plan", [
+    "FREE",
+    "START",
+    "PRO",
+    "PRO_PLUS",
+  ]).notNull().default("FREE"),
+  status: mysqlEnum("status", [
+    "PENDING",
+    "APPROVED",
+    "REJECTED",
+  ]).notNull().default("PENDING"),
+  contactPhone: varchar("contact_phone", { length: 32 }),
+  notes: text("notes"),
+  reviewedByUserId: refId("reviewed_by_user_id").references(() => users.id, {
+    onDelete: "set null",
+  }),
+  reviewedAt: timestamp("reviewed_at", { mode: "date" }),
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+});
+
 export type Restaurant = typeof restaurants.$inferSelect;
 export type Branch = typeof branches.$inferSelect;
 export type RestaurantMember = typeof restaurantMembers.$inferSelect;
 export type Subscription = typeof subscriptions.$inferSelect;
+export type PlanRequest = typeof planRequests.$inferSelect;
