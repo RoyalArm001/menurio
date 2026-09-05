@@ -25,10 +25,20 @@ export async function loginWithCredentialsAction(formData: FormData) {
       redirectTo: safeRedirect,
     });
   } catch (error) {
+    if (
+      error &&
+      typeof error === "object" &&
+      "digest" in error &&
+      typeof (error as any).digest === "string" &&
+      (error as any).digest.startsWith("NEXT_REDIRECT")
+    ) {
+      throw error;
+    }
     if (error instanceof AuthError) {
       redirect(`/login?error=invalid&next=${encodeURIComponent(safeRedirect)}`);
     }
-    throw error;
+    console.error("Login authentication error:", error);
+    redirect(`/login?error=invalid&next=${encodeURIComponent(safeRedirect)}`);
   }
 }
 
@@ -63,9 +73,19 @@ export async function registerAndSignInAction(formData: FormData) {
       redirectTo: "/dashboard",
     });
   } catch (error) {
+    if (
+      error &&
+      typeof error === "object" &&
+      "digest" in error &&
+      typeof (error as any).digest === "string" &&
+      (error as any).digest.startsWith("NEXT_REDIRECT")
+    ) {
+      throw error;
+    }
     if (error instanceof AuthError) {
       redirect("/login?next=/dashboard");
     }
-    throw error;
+    console.error("Registration sign-in error:", error);
+    redirect("/login?next=/dashboard");
   }
 }
