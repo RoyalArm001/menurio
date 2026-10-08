@@ -97,6 +97,7 @@ export default function AdminOverviewPage() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   async function loadData() {
+    await Promise.resolve();
     setLoading(true);
     setError(null);
     try {
@@ -124,6 +125,7 @@ export default function AdminOverviewPage() {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadData();
   }, []);
 

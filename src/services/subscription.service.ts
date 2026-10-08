@@ -6,7 +6,6 @@ import {
   subscriptions,
   restaurants,
   users,
-  type PlanRequest,
 } from "@/db/schema";
 import type { SubscriptionPlan } from "@/lib/entitlements";
 import { writeAuditLog } from "@/lib/audit/log";

@@ -29,8 +29,8 @@ export async function loginWithCredentialsAction(formData: FormData) {
       error &&
       typeof error === "object" &&
       "digest" in error &&
-      typeof (error as any).digest === "string" &&
-      (error as any).digest.startsWith("NEXT_REDIRECT")
+      typeof (error as { digest?: string }).digest === "string" &&
+      (error as { digest?: string }).digest?.startsWith("NEXT_REDIRECT")
     ) {
       throw error;
     }
@@ -77,8 +77,8 @@ export async function registerAndSignInAction(formData: FormData) {
       error &&
       typeof error === "object" &&
       "digest" in error &&
-      typeof (error as any).digest === "string" &&
-      (error as any).digest.startsWith("NEXT_REDIRECT")
+      typeof (error as { digest?: string }).digest === "string" &&
+      (error as { digest?: string }).digest?.startsWith("NEXT_REDIRECT")
     ) {
       throw error;
     }

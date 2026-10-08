@@ -14,7 +14,6 @@ import {
   memberRoleEnum,
   subscriptionPlanEnum,
   subscriptionStatusEnum,
-  planRequestStatusEnum,
 } from "./enums";
 
 export const restaurants = mysqlTable(

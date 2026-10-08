@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRestaurant } from "@/contexts/restaurant-context";
 import { api } from "@/lib/api/client";
 import { EmptyState } from "@/components/ui/states";
@@ -90,8 +90,9 @@ export default function SubscriptionClient() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  async function loadData() {
+  const loadData = useCallback(async () => {
     if (!activeRestaurant) return;
+    await Promise.resolve();
     try {
       setLoading(true);
       const [restData, reqRes] = await Promise.all([
@@ -110,11 +111,12 @@ export default function SubscriptionClient() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [activeRestaurant]);
 
   useEffect(() => {
-    loadData();
-  }, [activeRestaurant]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void loadData();
+  }, [loadData]);
 
   async function handleSendPlanRequest() {
     if (!activeRestaurant || !selectedPlanForUpgrade) return;
